@@ -114,7 +114,15 @@ class AnimauxController{
             $idAnimal = Securite::secureHTML($_POST['animal_id']);
             $nom = Securite::secureHTML($_POST['animal_nom']);
             $description = Securite::secureHTML($_POST['animal_description']);
-            $image="";
+            $image= $this->animauxManager->getImageAnimal($idAnimal);
+            
+            //verif si image déjà présente on efface la précédente et on met la nouvelle
+            if($_FILES['image']['size'] > 0){
+                unlink("public/images/".$image);
+                $repertoire = "public/images/";
+                $image = ajoutImage($_FILES['image'],$repertoire);
+            }
+            
             $famille = (int) Securite::secureHTML($_POST['famille_id']);
 
             $this->animauxManager->updateAnimal($idAnimal,$nom,$description,$image,$famille);

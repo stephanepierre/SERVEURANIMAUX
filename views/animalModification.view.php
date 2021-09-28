@@ -11,6 +11,7 @@
         <textarea class="form-control" id="animal_description" name="animal_description" rows="3"><?= $animal['animal_description'] ?></textarea>
     </div>
     <div class="form-group">
+        <img src="<?= URL ?>public/images/<?= $animal['animal_image'] ?>" style="width:50px;" />
         <label for="image">Image :</label>
         <input type="file" class="form-control-file" id="image" name="image">
     </div>
