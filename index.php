@@ -87,6 +87,8 @@ try {
                             break;
                             case "modification" : $animauxController->modification($url[3]);
                             break;
+                            case "modificationValidation" : $animauxController->modificationValidation();
+                            break;
                             default : throw new Exception ("La page n'existe pas");
                         }
                     break;

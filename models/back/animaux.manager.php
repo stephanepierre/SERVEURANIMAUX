@@ -28,16 +28,19 @@ class AnimauxManager extends Model{
         $stmt->closeCursor();
     }
 
-    // public function updateFamille($idFamille,$libelle,$description){
-    //     $req ="Update famille set famille_libelle = :libelle, famille_description = :description
-    //     where famille_id= :idFamille";
-    //     $stmt = $this->getBdd()->prepare($req);
-    //     $stmt->bindValue(":idFamille",$idFamille,PDO::PARAM_INT);
-    //     $stmt->bindValue(":libelle",$libelle,PDO::PARAM_STR);
-    //     $stmt->bindValue(":description",$description,PDO::PARAM_STR);
-    //     $stmt->execute();
-    //     $stmt->closeCursor();
-    // }
+    public function updateAnimal($idAnimal,$nom,$description,$image,$famille){
+        $req ="Update animal 
+        set animal_nom = :nom, animal_description = :description, animal_image = :image, famille_id = :famille
+        where animal_id= :idAnimal";
+        $stmt = $this->getBdd()->prepare($req);
+        $stmt->bindValue(":idAnimal",$idAnimal,PDO::PARAM_INT);
+        $stmt->bindValue(":famille",$famille,PDO::PARAM_INT);
+        $stmt->bindValue(":nom",$nom,PDO::PARAM_STR);
+        $stmt->bindValue(":description",$description,PDO::PARAM_STR);
+        $stmt->bindValue(":image",$image,PDO::PARAM_STR);
+        $stmt->execute();
+        $stmt->closeCursor();
+    }
 
     public function createAnimal($libelle,$description,$image,$famille){
         $req ="Insert into animal (animal_nom,animal_description,animal_image,famille_id)
@@ -54,9 +57,9 @@ class AnimauxManager extends Model{
     }
 
     public function getAnimal($idAnimal){
-        $req = "SELECT * from animal a
+        $req = "SELECT a.animal_id, animal_nom, animal_description, animal_image, a.famille_id, continent_id from animal a
             inner join famille f on a.famille_id=f.famille_id 
-            inner join animal_continent ac on ac.animal_id = a.animal_id
+            left join animal_continent ac on ac.animal_id = a.animal_id
             WHERE a.animal_id = :idAnimal";
         $stmt = $this->getBdd()->prepare($req);
         $stmt->bindValue(":idAnimal",$idAnimal,PDO::PARAM_INT);

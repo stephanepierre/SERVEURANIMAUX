@@ -101,4 +101,46 @@ class AnimauxController{
             throw new Exception("Vous n'avez pas le droit d'être là ! ");
         }
     }
+
+    public function modificationValidation(){
+        if(Securite::verifAccessSession()){
+            $idAnimal = Securite::secureHTML($_POST['animal_id']);
+            $nom = Securite::secureHTML($_POST['animal_nom']);
+            $description = Securite::secureHTML($_POST['animal_description']);
+            $image="";
+            $famille = (int) Securite::secureHTML($_POST['famille_id']);
+
+            $this->animauxManager->updateAnimal($idAnimal,$nom,$description,$image,$famille);
+            
+            $continents = [
+                1 => !empty($_POST['continent-1']),
+                2 => !empty($_POST['continent-2']),
+                3 => !empty($_POST['continent-3']),
+                4 => !empty($_POST['continent-4']),
+                5 => !empty($_POST['continent-5']),
+            ];
+
+            $continentsManager = new ContinentsManager;
+
+            foreach ($continents as $key => $continent) {
+                //continent coché et non présent en BD
+                if($continents[$key] && !$continentsManager->verificationExisteAnimalContinent($idAnimal,$key)){
+                    $continentsManager->addContinentAnimal($idAnimal,$key);
+                }
+
+                //continent non coché et présent en BD
+                if(!$continents[$key] && $continentsManager->verificationExisteAnimalContinent($idAnimal,$key)){
+                    $continentsManager->deleteDBContinentAnimal($idAnimal,$key);
+                }
+            }
+
+            $_SESSION['alert'] = [
+                "message" => "L'animal a bien été modifié",
+                "type" => "alert-success"
+            ];
+            header('Location: '.URL.'back/animaux/visualisation');
+        } else {
+            throw new Exception("Vous n'avez pas le droit d'être là ! ");
+        }
+    }
 }
