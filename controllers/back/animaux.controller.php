@@ -3,7 +3,7 @@ require_once "./controllers/back/Securite.class.php";
 require_once "./models/back/animaux.manager.php";
 require_once "./models/back/familles.manager.php";
 require_once "./models/back/continents.manager.php";
-
+require_once "./controllers/back/utile.php";
 
 class AnimauxController{
     private $animauxManager;
@@ -25,7 +25,6 @@ class AnimauxController{
         if(Securite::verifAccessSession()){
             $idAnimal = (int)Securite::secureHTML($_POST['animal_id']);
             
-            //attention a l'ordre, d'abord supprimer dans la table intermediaire!!!
             $this->animauxManager->deleteDBAnimalContinent($idAnimal);
             $this->animauxManager->deleteDBAnimal($idAnimal);
             $_SESSION['alert'] = [
@@ -56,6 +55,12 @@ class AnimauxController{
             $nom = Securite::secureHTML($_POST['animal_nom']);
             $description = Securite::secureHTML($_POST['animal_description']);
             $image="";
+            //verif taille de l'image si ok donne emplacement image ($repertoire)
+            if($_FILES['image']['size'] > 0){
+                $repertoire = "public/images/";
+                $image = ajoutImage($_FILES['image'],$repertoire);
+            }
+            
             $famille = (int) Securite::secureHTML($_POST['famille_id']);
 
             $idAnimal = $this->animauxManager->createAnimal($nom,$description,$image,$famille);
