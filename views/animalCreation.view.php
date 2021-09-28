@@ -15,7 +15,7 @@
     </div>
     <div class="form-group">
         <label for="image">Familles :</label>
-        <select class="form-control" name="famille">
+        <select class="form-control" name="famille_id">
             <option></option>
             <?php foreach ($familles as $famille) : ?>
                 <option value="<?= $famille['famille_id'] ?>">

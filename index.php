@@ -83,6 +83,8 @@ try {
                             break;
                             case "creation" : $animauxController->creation();
                             break;
+                            case "creationValidation" : $animauxController->creationValidation();
+                            break;
                             default : throw new Exception ("La page n'existe pas");
                         }
                     break;
