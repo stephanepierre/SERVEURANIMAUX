@@ -24,6 +24,8 @@ class AnimauxController{
     public function suppression(){
         if(Securite::verifAccessSession()){
             $idAnimal = (int)Securite::secureHTML($_POST['animal_id']);
+            $image = $this->animauxManager->getImageAnimal($idAnimal);
+            unlink("public/images/".$image);
             
             $this->animauxManager->deleteDBAnimalContinent($idAnimal);
             $this->animauxManager->deleteDBAnimal($idAnimal);
@@ -31,7 +33,7 @@ class AnimauxController{
                 "message" => "L'animal est supprimé",
                 "type" => "alert-success"
             ];
-           
+            
             header('Location: '.URL.'back/animaux/visualisation');
         } else {
             throw new Exception("Vous n'avez pas le droit d'être là ! ");
