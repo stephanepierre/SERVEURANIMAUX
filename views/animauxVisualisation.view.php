@@ -16,10 +16,7 @@
                 <td><?= $animal['animal_nom'] ?></td>
                 <td><?= $animal['animal_description'] ?></td>
                 <td>
-                    <form method="post" action="">
-                        <input type="hidden" name="animal_id" value="<?= $animaux['animal_id'] ?>" />
-                        <button class="btn btn-warning" type="submit">Modifier</button>
-                    </form>
+                    <a href="<?= URL ?>back/animaux/modification/<?= $animal['animal_id'] ?>" class="btn btn-warning">Modifier </a>
                 </td>
                 <td>
                     <form method="post" action="<?= URL ?>back/animaux/validationSuppression" onSubmit="return confirm('Voulez-vous vraiment supprimer ?');">
