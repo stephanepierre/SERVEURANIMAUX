@@ -81,6 +81,8 @@ try {
                             break;
                             case "validationSuppression" : $animauxController->suppression();
                             break;
+                            case "creation" : $animauxController->creation();
+                            break;
                             default : throw new Exception ("La page n'existe pas");
                         }
                     break;

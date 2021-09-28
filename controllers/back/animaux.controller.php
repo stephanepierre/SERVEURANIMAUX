@@ -1,6 +1,9 @@
 <?php
 require_once "./controllers/back/Securite.class.php";
 require_once "./models/back/animaux.manager.php";
+require_once "./models/back/familles.manager.php";
+require_once "./models/back/continents.manager.php";
+
 
 class AnimauxController{
     private $animauxManager;
@@ -31,6 +34,18 @@ class AnimauxController{
             ];
            
             header('Location: '.URL.'back/animaux/visualisation');
+        } else {
+            throw new Exception("Vous n'avez pas le droit d'être là ! ");
+        }
+    }
+
+    public function creation(){
+        if(Securite::verifAccessSession()){
+            $famillesManager = new FamillesManager();
+            $familles = $famillesManager->getFamilles();
+            $continentsManager = new ContinentsManager();
+            $continents = $continentsManager->getContinents();
+            require_once "views/animalCreation.view.php";
         } else {
             throw new Exception("Vous n'avez pas le droit d'être là ! ");
         }
