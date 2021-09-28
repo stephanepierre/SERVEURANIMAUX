@@ -62,11 +62,13 @@ try {
                         switch($url[2]){
                             case "visualisation" : $famillesController->visualisation();
                             break;
-                            case "validationSuppression" : $adminController-> suppression();    //supprime les données dans la BD
+                            case "validationSuppression" : $famillesController-> suppression();    //supprime les données dans la BD
                             break;
                             case "validationModification" : $famillesController->modification();
                             break;
-                            case "creation" : echo "creation";
+                            case "creation" : $famillesController->creationTemplate();
+                            break;
+                            case "creationValidation" : $famillesController->creationValidation();
                             break;
                             default : throw new Exception ("La page n'existe pas");
                         }

@@ -58,4 +58,31 @@ class FamillesController{
         } else {
             throw new Exception("Vous n'avez pas le droit d'être là ! ");
         }
-    }}
+    }
+
+    public function creationTemplate(){
+        if(Securite::verifAccessSession()){
+            require_once "views/familleCreation.view.php";
+        } else {
+            throw new Exception("Vous n'avez pas le droit d'être là ! ");
+        }
+    }
+
+    //pour valider la creation d'une nouvelle famille
+    public function creationValidation(){
+        if(Securite::verifAccessSession()){
+            $libelle = Securite::secureHTML($_POST['famille_libelle']);
+            $description = Securite::secureHTML($_POST['famille_description']);
+            $idFamille = $this->famillesManager->createFamille($libelle,$description);
+
+            $_SESSION['alert'] = [
+                "message" => "La famille a bien été créée avec l'identifiant : ".$idFamille,
+                "type" => "alert-success"
+            ];
+
+            header('Location: '.URL.'back/familles/visualisation');
+        } else {
+            throw new Exception("Vous n'avez pas le droit d'être là ! ");
+        }
+    }
+}
