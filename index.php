@@ -52,8 +52,6 @@ try {
                 switch($url[1]){
                     case "login" : $adminController -> getPageLogin();         //http://localhost/back/...
                     break;
-                    case "validationSuppression" : $adminController-> suppression();    //supprime les données dans la BD
-                    break;
                     case "connexion" : $adminController -> connexion();
                     break;
                     case "admin" : $adminController -> getAccueilAdmin();
@@ -63,6 +61,10 @@ try {
                     case "familles" :
                         switch($url[2]){
                             case "visualisation" : $famillesController->visualisation();
+                            break;
+                            case "validationSuppression" : $adminController-> suppression();    //supprime les données dans la BD
+                            break;
+                            case "validationModification" : $famillesController->modification();
                             break;
                             case "creation" : echo "creation";
                             break;
