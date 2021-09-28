@@ -23,7 +23,7 @@
                 </td>
                 <td>
                     <form method="post" action="<?= URL ?>back/animaux/validationSuppression" onSubmit="return confirm('Voulez-vous vraiment supprimer ?');">
-                        <input type="hidden" name="famille_id" value="<?= $animal['animal_id'] ?>" />
+                        <input type="hidden" name="animal_id" value="<?= $animal['animal_id'] ?>" />
                         <button class="btn btn-danger" type="submit">Supprimer</button>
                     </form>
                 </td>

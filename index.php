@@ -79,6 +79,8 @@ try {
                         switch($url[2]){
                             case "visualisation" : $animauxController->visualisation();
                             break;
+                            case "validationSuppression" : $animauxController->suppression();
+                            break;
                             default : throw new Exception ("La page n'existe pas");
                         }
                     break;

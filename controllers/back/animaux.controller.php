@@ -17,4 +17,22 @@ class AnimauxController{
             throw new Exception("Vous n'avez pas le droit d'être là ! ");
         }
     }
+
+    public function suppression(){
+        if(Securite::verifAccessSession()){
+            $idAnimal = (int)Securite::secureHTML($_POST['animal_id']);
+            
+            //attention a l'ordre, d'abord supprimer dans la table intermediaire!!!
+            $this->animauxManager->deleteDBAnimalContinent($idAnimal);
+            $this->animauxManager->deleteDBAnimal($idAnimal);
+            $_SESSION['alert'] = [
+                "message" => "L'animal est supprimé",
+                "type" => "alert-success"
+            ];
+           
+            header('Location: '.URL.'back/animaux/visualisation');
+        } else {
+            throw new Exception("Vous n'avez pas le droit d'être là ! ");
+        }
+    }
 }

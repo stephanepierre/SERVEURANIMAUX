@@ -12,13 +12,21 @@ class AnimauxManager extends Model{
         return $animaux;
     }
 
-    // public function deleteDBfamille($idFamille){
-    //     $req ="Delete from famille where famille_id= :idFamille";
-    //     $stmt = $this->getBdd()->prepare($req);
-    //     $stmt->bindValue(":idFamille",$idFamille,PDO::PARAM_INT);
-    //     $stmt->execute();
-    //     $stmt->closeCursor();
-    // }
+    public function deleteDBAnimalContinent($idAnimal){
+        $req ="Delete from animal_continent where animal_id= :idAnimal";
+        $stmt = $this->getBdd()->prepare($req);
+        $stmt->bindValue(":idAnimal",$idAnimal,PDO::PARAM_INT);
+        $stmt->execute();
+        $stmt->closeCursor();
+    }
+
+    public function deleteDBAnimal($idAnimal){
+        $req ="Delete from animal where animal_id= :idAnimal";
+        $stmt = $this->getBdd()->prepare($req);
+        $stmt->bindValue(":idAnimal",$idAnimal,PDO::PARAM_INT);
+        $stmt->execute();
+        $stmt->closeCursor();
+    }
 
     // public function compterAnimaux($idFamille){
     //     $req ="Select count(*) as 'nb'
