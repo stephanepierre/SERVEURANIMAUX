@@ -16,9 +16,14 @@
                 <td><?= $famille['famille_libelle'] ?></td>
                 <td><?= $famille['famille_description'] ?></td>
                 <td><button class="btn btn-warning">Modifier</button></td>
-                <td><button class="btn btn-danger">Supprimer</button></td>
-            </tr>
-        <?php endforeach; ?>
+                <td>
+                    <form methode="post" action="<?= URL ?>back/familles/validationSuppression" onSubmit="return confirm('Voulez-vous vraiment supprimer ?')">
+                    <input type="hidden" name="famille_id" value="<?= $famille['famille_id'] ?>" />
+                        <button class="btn btn-danger" type="submit">Supprimer</button>   
+                    </form>
+                </td>
+             </tr>
+                <?php endforeach; ?>
     </tbody>
 </table>
 

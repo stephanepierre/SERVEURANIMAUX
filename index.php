@@ -52,6 +52,8 @@ try {
                 switch($url[1]){
                     case "login" : $adminController -> getPageLogin();         //http://localhost/back/...
                     break;
+                    case "validationSuppression" : $adminController-> suppression();    //supprime les données dans la BD
+                    break;
                     case "connexion" : $adminController -> connexion();
                     break;
                     case "admin" : $adminController -> getAccueilAdmin();
